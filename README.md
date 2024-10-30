@@ -14,6 +14,12 @@ The package can be installed by adding `esb_fireplace-go` to your list of depend
 require github.com/luxedo/esb_fireplace-go v0.1.0
 ```
 
+or by running:
+
+```bash
+go get github.com/luxedo/esb_fireplace-go
+```
+
 ## Usage
 
 Create your solution functions and add `esb_fireplace.V1Run` to `main`.
