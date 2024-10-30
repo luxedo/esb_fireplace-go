@@ -11,7 +11,7 @@ Check [esb](https://github.com/luxedo/esb) for more information.
 The package can be installed by adding `esb_fireplace-go` to your list of dependencies in `go.mod`:
 
 ```mod
-require github.com/luxedo/esb_fireplace-go v0.1.0
+require github.com/luxedo/esb_fireplace-go v0.1.1
 ```
 
 or by running:
@@ -57,7 +57,7 @@ go run . --part 1 < input_data.txt
 esb run --year 2023 --day 1 --lang rust --part 1
 ```
 
-The docs can be found at <https://docs.rs/esb_fireplace/>.
+The docs can be found at <https://pkg.go.dev/github.com/luxedo/esb_fireplace-go/>.
 
 ## License
 
