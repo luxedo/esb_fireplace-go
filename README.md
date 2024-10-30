@@ -11,7 +11,7 @@ Check [esb](https://github.com/luxedo/esb) for more information.
 The package can be installed by adding `esb_fireplace-go` to your list of dependencies in `go.mod`:
 
 ```mod
-require github.com/luxedo/esb_fireplace-go v1.0.0
+require github.com/luxedo/esb_fireplace-go v0.1.0
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ Create your solution functions and add `esb_fireplace.V1Run` to `main`.
 package main
 
 import (
-  "esb_fireplace"
+  "github.com/luxedo/esb_fireplace-go"
 )
 
 func solve_pt1(input_data string, args []string) (interface{}, error) {
