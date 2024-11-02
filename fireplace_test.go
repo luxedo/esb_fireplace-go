@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -140,8 +141,11 @@ func TestV1Run(t *testing.T) {
 		stdoutWriter.Close()
 		output := <-outC
 
-		if output != tt.expected {
+		if strings.TrimRight(output, "\n") != tt.expected {
 			t.Errorf("Expected output %q, got %q", tt.expected, output)
+		}
+		if !strings.HasSuffix(output, "\n") {
+			t.Errorf("Expected a single line break ad the end of output. Got %q", output)
 		}
 	}
 }

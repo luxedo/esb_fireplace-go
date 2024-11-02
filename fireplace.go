@@ -78,7 +78,6 @@ func run(
 	default:
 		panic("Should not get here!")
 	}
-	fmt.Print(answer)
 	return answer, err
 }
 
@@ -95,10 +94,11 @@ func V1Run(solve_pt1 AoCSolutionFn, solve_pt2 AoCSolutionFn) {
 		os.Exit(1)
 	}
 
-	_, err = run(solve_pt1, solve_pt2, *input_data, args, part)
+	answer, err := run(solve_pt1, solve_pt2, *input_data, args, part)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
+	fmt.Println(answer)
 }
