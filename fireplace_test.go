@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -58,8 +59,8 @@ func TestRun(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		silentRun := SuppressOutput(run).(func(AoCSolutionFn, AoCSolutionFn, string, []string, AoCPart) (interface{}, error))
-		answer, err := silentRun(
+		silentRun := SuppressOutput(run).(func(AoCSolutionFn, AoCSolutionFn, string, []string, AoCPart) (interface{}, int64, error))
+		answer, _, err := silentRun(
 			tt.fn1,
 			tt.fn2,
 			input_data,
@@ -141,11 +142,20 @@ func TestV1Run(t *testing.T) {
 		stdoutWriter.Close()
 		output := <-outC
 
-		if strings.TrimRight(output, "\n") != tt.expected {
+		lines := strings.Split(output, "\n")
+		if len(lines) != 3 {
+			t.Errorf("Expected 2 lines from output, got: %d", len(lines))
+		}
+		if lines[0] != tt.expected {
 			t.Errorf("Expected output %q, got %q", tt.expected, output)
 		}
-		if !strings.HasSuffix(output, "\n") {
-			t.Errorf("Expected a single line break ad the end of output. Got %q", output)
+
+		regex, _ := regexp.Compile("RT [0-9]+ ns")
+		if !regex.MatchString(lines[1]) {
+			t.Errorf("The second line should print the running time. Got %q", lines[1])
+		}
+		if len(lines[2]) != 0 {
+			t.Errorf("The last line break should be a single blank line. Got %q", lines[2])
 		}
 	}
 }

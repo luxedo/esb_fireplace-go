@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 
 	"github.com/spf13/pflag"
 )
@@ -67,18 +68,20 @@ func run(
 	input_data string,
 	args []string,
 	part AoCPart,
-) (interface{}, error) {
-	var answer interface{}
-	var err error
+) (answer interface{}, elapsed int64, err error) {
+
+	start := time.Now()
 	switch part {
 	case AoCPart1:
 		answer, err = solve_pt1(input_data, args)
 	case AoCPart2:
+		start = time.Now()
 		answer, err = solve_pt2(input_data, args)
 	default:
 		panic("Should not get here!")
 	}
-	return answer, err
+	elapsed = time.Since(start).Nanoseconds()
+	return answer, elapsed, err
 }
 
 func V1Run(solve_pt1 AoCSolutionFn, solve_pt2 AoCSolutionFn) {
@@ -94,11 +97,12 @@ func V1Run(solve_pt1 AoCSolutionFn, solve_pt2 AoCSolutionFn) {
 		os.Exit(1)
 	}
 
-	answer, err := run(solve_pt1, solve_pt2, *input_data, args, part)
+	answer, elapsed, err := run(solve_pt1, solve_pt2, *input_data, args, part)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
 	fmt.Println(answer)
+	fmt.Printf("RT %d ns\n", elapsed)
 }
