@@ -48,7 +48,9 @@ func parseArgs(cmd_args []string) (AoCPart, []string, error) {
 	args = append(args, remainingArgs...)
 
 	if *part != 1 && *part != 2 {
-		return AoCPartNone, []string{}, errors.New("Invalid part, please use 1 or 2 as argument for --part flag.")
+		return AoCPartNone, []string{}, errors.New(
+			"Invalid part, please use 1 or 2 as argument for --part flag.",
+		)
 	}
 	return AoCPart(*part), args, nil
 }
@@ -58,25 +60,24 @@ func readInput() (*string, error) {
 	if err != nil {
 		return nil, errors.New(fmt.Sprint("Error reading input: %w", err))
 	}
-	input_data := string(stdin)
-	return &input_data, nil
+	inputData := string(stdin)
+	return &inputData, nil
 }
 
 func run(
-	solve_pt1 AoCSolutionFn,
-	solve_pt2 AoCSolutionFn,
-	input_data string,
+	SolvePt1 AoCSolutionFn,
+	SolvePt2 AoCSolutionFn,
+	inputData string,
 	args []string,
 	part AoCPart,
 ) (answer interface{}, elapsed int64, err error) {
-
 	start := time.Now()
 	switch part {
 	case AoCPart1:
-		answer, err = solve_pt1(input_data, args)
+		answer, err = SolvePt1(inputData, args)
 	case AoCPart2:
 		start = time.Now()
-		answer, err = solve_pt2(input_data, args)
+		answer, err = SolvePt2(inputData, args)
 	default:
 		panic("Should not get here!")
 	}
@@ -84,20 +85,20 @@ func run(
 	return answer, elapsed, err
 }
 
-func V1Run(solve_pt1 AoCSolutionFn, solve_pt2 AoCSolutionFn) {
+func V1Run(SolvePt1 AoCSolutionFn, SolvePt2 AoCSolutionFn) {
 	part, args, err := parseArgs(os.Args[1:])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	input_data, err := readInput()
+	inputData, err := readInput()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	answer, elapsed, err := run(solve_pt1, solve_pt2, *input_data, args, part)
+	answer, elapsed, err := run(SolvePt1, SolvePt2, *inputData, args, part)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

@@ -11,7 +11,7 @@ Check [esb](https://github.com/luxedo/esb) for more information.
 The package can be installed by adding `esb_fireplace-go` to your list of dependencies in `go.mod`:
 
 ```mod
-require github.com/luxedo/esb_fireplace-go v0.1.1
+require github.com/luxedo/esb_fireplace-go v1.0.0
 ```
 
 or by running:
@@ -31,19 +31,19 @@ import (
   "github.com/luxedo/esb_fireplace-go"
 )
 
-func solve_pt1(input_data string, args []string) (interface{}, error) {
+func SolvePt1(inputData string, args []string) (interface{}, error) {
 	return 25, nil
 }
 
 
-func solve_pt2(input_data string, args []string) (interface{}, error) {
+func SolvePt2(inputData string, args []string) (interface{}, error) {
 	return "December", nil
 }
 
 func main() {
   // 🎅🎄❄️☃️🎁🦌
   // Bright christmas lights HERE
-  esb_fireplace.V1Run(solve_pt1, solve_pt2)
+  esb_fireplace.V1Run(SolvePt1, SolvePt2)
 }
 ```
 
@@ -51,7 +51,7 @@ Running can be done with `go run`, but this library is meant to be used with [es
 
 ```bash
 # You can do this...
-go run . --part 1 < input_data.txt
+go run . --part 1 < inputData.txt
 
 # But instead do this:
 esb run --year 2023 --day 1 --lang rust --part 1

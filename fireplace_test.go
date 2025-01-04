@@ -12,18 +12,18 @@ import (
 	"testing"
 )
 
-func shouldNotRun(input_data string, args []string) (interface{}, error) {
+func shouldNotRun(inputData string, args []string) (interface{}, error) {
 	return nil, errors.New("This should not be running")
 }
 
-func solve_pt1(input_data string, args []string) (interface{}, error) {
-	return input_data, nil
+func SolvePt1(inputData string, args []string) (interface{}, error) {
+	return inputData, nil
 }
 
-var pt2_answer = "christmas gopher"
+var pt2Answer = "christmas gopher"
 
-func solve_pt2(input_data string, args []string) (interface{}, error) {
-	return pt2_answer, nil
+func SolvePt2(inputData string, args []string) (interface{}, error) {
+	return pt2Answer, nil
 }
 
 func SuppressOutput(fn interface{}) interface{} {
@@ -42,7 +42,7 @@ func SuppressOutput(fn interface{}) interface{} {
 }
 
 func TestRun(t *testing.T) {
-	input_data := "123"
+	inputData := "123"
 	args := []string{}
 	type RunTestCase = struct {
 		fn1        AoCSolutionFn
@@ -52,8 +52,8 @@ func TestRun(t *testing.T) {
 		shouldFail bool
 	}
 	tests := []RunTestCase{
-		{solve_pt1, shouldNotRun, AoCPart1, input_data, false},
-		{shouldNotRun, solve_pt2, AoCPart2, pt2_answer, false},
+		{SolvePt1, shouldNotRun, AoCPart1, inputData, false},
+		{shouldNotRun, SolvePt2, AoCPart2, pt2Answer, false},
 		{shouldNotRun, shouldNotRun, AoCPart1, "", true},
 		{shouldNotRun, shouldNotRun, AoCPart2, "", true},
 	}
@@ -63,7 +63,7 @@ func TestRun(t *testing.T) {
 		answer, _, err := silentRun(
 			tt.fn1,
 			tt.fn2,
-			input_data,
+			inputData,
 			args,
 			tt.part,
 		)
@@ -84,18 +84,18 @@ func TestRun(t *testing.T) {
 }
 
 func TestV1Run(t *testing.T) {
-	input_data := "123"
+	inputData := "123"
 	// args := []string{}
 	type RunTestCase = struct {
-		fn1        AoCSolutionFn
-		fn2        AoCSolutionFn
-		part       string
-		input_data string
-		expected   string
+		fn1       AoCSolutionFn
+		fn2       AoCSolutionFn
+		part      string
+		inputData string
+		expected  string
 	}
 	tests := []RunTestCase{
-		{solve_pt1, shouldNotRun, "1", input_data, input_data},
-		{shouldNotRun, solve_pt2, "2", input_data, pt2_answer},
+		{SolvePt1, shouldNotRun, "1", inputData, inputData},
+		{shouldNotRun, SolvePt2, "2", inputData, pt2Answer},
 	}
 
 	for _, tt := range tests {
@@ -113,7 +113,7 @@ func TestV1Run(t *testing.T) {
 
 		go func() {
 			defer stdinWriter.Close()
-			_, err := stdinWriter.Write([]byte(tt.input_data))
+			_, err := stdinWriter.Write([]byte(tt.inputData))
 			if err != nil {
 				panic(fmt.Sprintf("Error writing test stdin: %v", err))
 			}
